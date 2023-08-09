@@ -14,7 +14,8 @@
 *.env
 
 # temp from air 
-tmp/
+tmp/*
+
 # Test binary, built with `go test -c`
 *.test
 *.db
