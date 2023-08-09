@@ -3,10 +3,13 @@ package api
 import (
 	// build-in
 
+	"log"
 	"net/http"
+	"os"
 
 	//3rd party
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 
 	//local
 	"github.com/boomnoob/go-practice-sql/database"
@@ -117,10 +120,17 @@ func DeleteCustomer(c *gin.Context) {
 }
 
 func SetupEndpoint() {
+
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading .env file")
+	}
+
+	port := os.Getenv("API_PORT")
 	r := gin.Default()
 
 	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"data": "API is running at "})
+		c.JSON(http.StatusOK, gin.H{"data": "API is running at " + port})
 	})
 
 	customersGroup := r.Group("/customers")
@@ -137,6 +147,6 @@ func SetupEndpoint() {
 
 	database.ConnectDatabase()
 
-	r.Run(":22356")
+	r.Run(":" + port)
 
 }
