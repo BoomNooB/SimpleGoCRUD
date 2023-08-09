@@ -33,7 +33,7 @@ func CreateNewCustomer(c *gin.Context) {
 	if customer.Name == "" || customer.Age == 0 {
 		c.JSON(http.StatusBadRequest,
 			gin.H{
-				"error": "WTF",
+				"error": "Name and age must be fill, and age must be only number",
 			})
 		return
 	}
