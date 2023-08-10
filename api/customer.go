@@ -1,23 +1,55 @@
 package api
 
 import (
-	// build-in
-
+	"fmt"
 	"log"
 	"net/http"
 	"os"
 
-	//3rd party
-	"github.com/gin-gonic/gin"
-	"github.com/joho/godotenv"
-
-	//local
 	"github.com/boomnoob/go-practice-sql/database"
 	"github.com/boomnoob/go-practice-sql/model"
+	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 )
 
-// POST
-// Create Cumtomer
+func ReadinessCheck(c *gin.Context) {
+
+	c.JSON(http.StatusOK, gin.H{"data": "API is running"})
+}
+
+func GetCustomerInfo(c *gin.Context) {
+	var customer model.Customers
+	err := database.DB.Where("id = ?", c.Param("id")).First(&customer).Error
+	if err != nil {
+		c.JSON(http.StatusBadRequest,
+			gin.H{
+				"error": "Cannot find customer information",
+			})
+		return
+	}
+
+	c.JSON(http.StatusOK, customer)
+
+}
+
+func DeleteCustomer(c *gin.Context) {
+	var customer model.Customers
+
+	err := database.DB.Where("id = ?", c.Param("id")).First(&customer).Error
+	if err != nil {
+		c.JSON(http.StatusBadRequest,
+			gin.H{
+				"error": "Cannot find customer information",
+			})
+		return
+	}
+
+	database.DB.Delete(&customer)
+
+	c.JSON(http.StatusOK, customer)
+
+}
+
 func CreateNewCustomer(c *gin.Context) {
 	var customer model.Customers
 
@@ -82,56 +114,17 @@ func UpdateCustomerInfo(c *gin.Context) {
 
 }
 
-// GET
-// GET USER INFO BY ID
-func GetCustomerInfo(c *gin.Context) {
-	var customer model.Customers
-	err := database.DB.Where("id = ?", c.Param("id")).First(&customer).Error
-	if err != nil {
-		c.JSON(http.StatusBadRequest,
-			gin.H{
-				"error": "Cannot find customer information",
-			})
-		return
-	}
-
-	c.JSON(http.StatusOK, customer)
-
-}
-
-// DELETE
-// delete record by record_id
-func DeleteCustomer(c *gin.Context) {
-	var customer model.Customers
-
-	err := database.DB.Where("id = ?", c.Param("id")).First(&customer).Error
-	if err != nil {
-		c.JSON(http.StatusBadRequest,
-			gin.H{
-				"error": "Cannot find customer information",
-			})
-		return
-	}
-
-	database.DB.Delete(&customer)
-
-	c.JSON(http.StatusOK, customer)
-
-}
-
-func SetupEndpoint() {
+func setupRouter() *gin.Engine {
 
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+	fmt.Println(".env loaded")
 
-	port := os.Getenv("API_PORT")
 	r := gin.Default()
 
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"data": "API is running at " + port})
-	})
+	r.GET("/", ReadinessCheck)
 
 	customersGroup := r.Group("/customers")
 	{
@@ -147,6 +140,10 @@ func SetupEndpoint() {
 
 	database.ConnectDatabase()
 
-	r.Run(":" + port)
+	return r
+}
 
+func Main() {
+	r := setupRouter()
+	r.Run(":" + os.Getenv("API_PORT"))
 }
