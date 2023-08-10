@@ -123,7 +123,6 @@ func TestUpdateCustomerInfo_InvalidPayloadData(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	// Invalid JSON payload, missing closing curly brace
 	payload := []byte(`{
 		"name": 3452123,
 		"age" : -66eiei

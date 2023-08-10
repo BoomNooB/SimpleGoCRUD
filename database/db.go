@@ -20,19 +20,3 @@ func ConnectDatabase() {
 
 	DB = db
 }
-
-func DisconnectDatabase() {
-	if DB != nil {
-		db, err := DB.DB()
-		if err != nil {
-			panic("Failed to get database connection")
-		}
-
-		err = db.Close() // This closes the underlying database connection
-		if err != nil {
-			panic("Failed to close database connection")
-		}
-
-		DB = nil
-	}
-}

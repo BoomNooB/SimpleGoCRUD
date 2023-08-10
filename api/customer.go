@@ -83,10 +83,6 @@ func CreateNewCustomer(c *gin.Context) {
 	c.JSON(http.StatusCreated, &customer)
 }
 
-// PUT
-// UPDATE EVERY FIELD BY ID
-// if ID not found then return 404
-
 func UpdateCustomerInfo(c *gin.Context) {
 	var customer model.Customers
 
