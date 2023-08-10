@@ -41,6 +41,7 @@ To get started with the **Project Name** project, follow these steps:
 7. **Run the Application:**\
    Start the server by executing:
    `go run cmd/main/main.go`\
+   or you can run with `air` (i've already provide the air config file)
    The server will start at `http://localhost:22345`
 
 ## API Endpoints
