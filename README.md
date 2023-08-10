@@ -148,7 +148,7 @@ Before running the unit tests, follow these steps:
 
 1. Run the following command to generate test data:
    `go run createInitDataInDB.go`
-   \
+   
 
 3. Copy the generated `customer.db` file to the `./api` folder.
 
