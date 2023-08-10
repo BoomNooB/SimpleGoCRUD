@@ -19,7 +19,7 @@
 
 To get started with the **Project Name** project, follow these steps:
 
-1. **Clone the Repository:**\
+1. **Clone the Repository:**
    ```
    git clone https://github.com/BoomNooB/go-practice-sql.git
    cd go-practice-sql
