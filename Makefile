@@ -1,6 +1,6 @@
-.PHONY: all generate-data copy-db update-test-file copy-env
+.PHONY: all create-env generate-data copy-db copy-env
 
-all: generate-data copy-db update-test-file copy-env
+all: create-env generate-data copy-db copy-env
 
 create-env:
 	touch .env
