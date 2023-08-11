@@ -33,19 +33,14 @@ To get started with the **Project Name** project, follow these steps:
    Simply just run
    `make`
    then it will do a couple of thing here
-   - Create a `.env` file in the root directory and set the \`API_PORT\` variable to 22345 the port on which the API will run:
-   - Initialize the SQLite database and put 20 example of customer info into database that that customer.db
-   `go run createInitDataInDB.go
+   - Create a `.env` file in the root directory and set the `API_PORT` variable to `22345` the port on which the API will run:
+   - Initialize the SQLite database and put `20` example of customer info into database that name `customer.db`
    - Copy `.env` and `customer.db` to `./api` 
-
-6. **Initialize the Database:**\
-   Run the following command to initialize the SQLite database and put 20 example of customer info into database:
-   `go run createInitDataInDB.go`
 
 7. **Run the Application:**\
    Start the server by executing:
    `go run cmd/main/main.go`\
-   or you can run with `air` (i've already provide the air config file)
+   or you can run with `air` (I've already provide the air config file)
    The server will start at `http://localhost:22345`
 
 ## API Endpoints
