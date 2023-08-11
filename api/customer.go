@@ -21,7 +21,7 @@ func GetCustomerInfo(c *gin.Context) {
 	var customer model.Customers
 	err := database.DB.Where("id = ?", c.Param("id")).First(&customer).Error
 	if err != nil {
-		c.JSON(http.StatusBadRequest,
+		c.JSON(http.StatusNotFound,
 			gin.H{
 				"error": "Cannot find customer information",
 			})
@@ -37,7 +37,7 @@ func DeleteCustomer(c *gin.Context) {
 
 	err := database.DB.Where("id = ?", c.Param("id")).First(&customer).Error
 	if err != nil {
-		c.JSON(http.StatusBadRequest,
+		c.JSON(http.StatusNotFound,
 			gin.H{
 				"error": "Cannot find customer information",
 			})
@@ -72,7 +72,7 @@ func CreateNewCustomer(c *gin.Context) {
 
 	result := database.DB.Create(&customer)
 	if result.Error != nil {
-		c.JSON(http.StatusBadRequest,
+		c.JSON(http.StatusInternalServerError,
 			gin.H{
 				"error": "Cannot create new customer",
 			})
@@ -88,7 +88,7 @@ func UpdateCustomerInfo(c *gin.Context) {
 
 	err := database.DB.Where("id = ?", c.Param("id")).First(&customer).Error
 	if err != nil {
-		c.JSON(http.StatusBadRequest,
+		c.JSON(http.StatusNotFound,
 			gin.H{
 				"error": "Cannot find customer information",
 			})
@@ -126,12 +126,9 @@ func setupRouter() *gin.Engine {
 	{
 		customersGroup.POST("", CreateNewCustomer)
 		customersGroup.PUT("/:id", UpdateCustomerInfo)
-	}
+		customersGroup.GET("/:id", GetCustomerInfo)
+		customersGroup.DELETE("/:id", DeleteCustomer)
 
-	employeeGroup := r.Group("/employees")
-	{
-		employeeGroup.GET("/:id", GetCustomerInfo)
-		employeeGroup.DELETE("/:id", DeleteCustomer)
 	}
 
 	database.ConnectDatabase()
