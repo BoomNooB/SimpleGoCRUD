@@ -159,6 +159,6 @@ Before running the unit tests, follow these steps:
 6. Run the tests using the following command:
    `go test ./...`
 
-The test coverage of this suite is **83.9%.**
+The test coverage of this suite is **83.3%.**
 
 ---
