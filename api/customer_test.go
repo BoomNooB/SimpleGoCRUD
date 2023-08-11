@@ -29,7 +29,7 @@ func TestGetCustomerInfo(t *testing.T) {
 	router := setupRouter()
 
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("GET", "/employees/10", nil)
+	req, _ := http.NewRequest("GET", "/customers/10", nil)
 	router.ServeHTTP(w, req)
 
 	assert.Equal(t, http.StatusOK, w.Code)
@@ -52,10 +52,10 @@ func TestTestGetCustomerInfo_NoRecord(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	req, _ := http.NewRequest("GET", "/employees/"+record_id, nil)
+	req, _ := http.NewRequest("GET", "/customers/"+record_id, nil)
 	router.ServeHTTP(w, req)
 
-	assert.Equal(t, http.StatusBadRequest, w.Code)
+	assert.Equal(t, http.StatusNotFound, w.Code)
 
 	var responseData map[string]interface{}
 	err := json.Unmarshal(w.Body.Bytes(), &responseData)
@@ -107,7 +107,7 @@ func TestUpdateCustomerInfo_InvalidRecordID(t *testing.T) {
 	req, _ := http.NewRequest("PUT", "/customers/"+record_id, bytes.NewBuffer(payload))
 	router.ServeHTTP(w, req)
 
-	assert.Equal(t, http.StatusBadRequest, w.Code)
+	assert.Equal(t, http.StatusNotFound, w.Code)
 
 	var responseData map[string]interface{}
 	err := json.Unmarshal(w.Body.Bytes(), &responseData)
@@ -173,7 +173,7 @@ func TestDeleteCustomer(t *testing.T) {
 	router := setupRouter()
 
 	w := httptest.NewRecorder()
-	req, _ := http.NewRequest("DELETE", "/employees/"+record_id, nil)
+	req, _ := http.NewRequest("DELETE", "/customers/"+record_id, nil)
 	router.ServeHTTP(w, req)
 
 	assert.Equal(t, 200, w.Code)
@@ -193,10 +193,10 @@ func TestDeleteCustomer_NoRecord(t *testing.T) {
 
 	w := httptest.NewRecorder()
 
-	req, _ := http.NewRequest("DELETE", "/employees/"+record_id, nil)
+	req, _ := http.NewRequest("DELETE", "/customers/"+record_id, nil)
 	router.ServeHTTP(w, req)
 
-	assert.Equal(t, http.StatusBadRequest, w.Code)
+	assert.Equal(t, http.StatusNotFound, w.Code)
 
 	var responseData map[string]interface{}
 	err := json.Unmarshal(w.Body.Bytes(), &responseData)
