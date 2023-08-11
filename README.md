@@ -22,7 +22,7 @@ To get started with the **Project Name** project, follow these steps:
 1. **Clone the Repository:**
    ```
    git clone https://github.com/BoomNooB/SimpleGoCRUD.git
-   cd go-SimpleGoCRUD
+   cd SimpleGoCRUD
    ```
    
 3. **Install Dependencies:**\
