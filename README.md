@@ -21,18 +21,22 @@ To get started with the **Project Name** project, follow these steps:
 
 1. **Clone the Repository:**
    ```
-   git clone https://github.com/BoomNooB/go-practice-sql.git
-   cd go-practice-sql
+   git clone https://github.com/BoomNooB/SimpleGoCRUD.git
+   cd go-SimpleGoCRUD
    ```
-
+   
 3. **Install Dependencies:**\
    Ensure you have Go installed. Then, run the following command to install the project's dependencies:\
    ```go mod tidy```
 
-4. **Create .env File:**\
-   Create a `.env` file in the root directory and set the \`API_PORT\` variable to specify the port on which the API will run:
-   Assume you'll use port 22345 so it will be
-   ```API_PORT=22345```
+4. **Running a makefile:**\
+   Simply just run
+   `make`
+   then it will do a couple of thing here
+   - Create a `.env` file in the root directory and set the \`API_PORT\` variable to 22345 the port on which the API will run:
+   - Initialize the SQLite database and put 20 example of customer info into database that that customer.db
+   `go run createInitDataInDB.go
+   - Copy `.env` and `customer.db` to `./api` 
 
 6. **Initialize the Database:**\
    Run the following command to initialize the SQLite database and put 20 example of customer info into database:
@@ -146,18 +150,11 @@ Delete a customer by ID.
 
 Before running the unit tests, follow these steps:
 
-1. Run the following command to generate test data:
-   `go run createInitDataInDB.go`
-   
-
-3. Copy the generated `customer.db` file to the `./api` folder.
-
-4. In the test file `api/customer_test.go`, ensure that the variable `record_id` contains an existing ID from the database.
-
-5. Copy the `.env` file to the `./api` folder.
+Assume that you've run the makefile since installation step
+Before running the test please ensure that the variable `record_id` contains an existing ID from the database in the test file `api/customer_test.go`
 
 6. Run the tests using the following command:
-   `go test ./...`
+   `go test ./...` or `go test ./... -cover` if you want to see percent of coverage
 
 The test coverage of this suite is **83.3%.**
 
