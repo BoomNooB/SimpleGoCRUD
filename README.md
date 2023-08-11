@@ -143,12 +143,10 @@ Delete a customer by ID.
 
 ## Running Unit Tests
 
-Before running the unit tests, follow these steps:
-
 Assume that you've run the makefile since installation step
-Before running the test please ensure that the variable `record_id` contains an existing ID from the database in the test file `api/customer_test.go`
+Before running the test please ensure that the variable `record_id` **contains an existing ID** from the database in the test file `api/customer_test.go`
 
-6. Run the tests using the following command:
+- Run the tests using the following command:
    `go test ./...` or `go test ./... -cover` if you want to see percent of coverage
 
 The test coverage of this suite is **83.3%.**
