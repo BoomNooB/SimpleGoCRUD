@@ -17,7 +17,7 @@
 
 ## Installation
 
-To get started with the **Project Name** project, follow these steps:
+To get started, follow these steps:
 
 1. **Clone the Repository:**
    ```
